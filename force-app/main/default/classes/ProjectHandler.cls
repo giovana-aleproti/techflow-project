@@ -3,20 +3,14 @@
 */
 public with sharing class ProjectHandler {
     
+    ProjectService ps = new ProjectService();
+
     public void beforeInsert(List<Project__c> newProjects) {
-        for (Project__c project : newProjects) {
-            if (project.Name == null || project.Name.trim() == '') {
-                project.addError('O nome do projeto é obrigatório.');
-            }
-        }
+        ps.checkProjectName(newProjects);
     }
 
     public void beforeUpdate(List<Project__c> updatedProjects) {
-        for (Project__c project : updatedProjects) {
-            if (project.Name == null || project.Name.trim() == '') {
-                project.addError('O nome do projeto é obrigatório.');
-            }
-        }
+        ps.checkProjectName(updatedProjects);
     }
 
     /*

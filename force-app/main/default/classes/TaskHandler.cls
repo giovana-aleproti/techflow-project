@@ -3,20 +3,14 @@
 */
 public with sharing class TaskHandler {
     
+    TaskService ts = new TaskService();
+
     public void beforeInsert(List<Task__c> newTasks) {
-        for (Task__c task : newTasks) {
-            if (task.Name == null || task.Name.trim() == '') {
-                task.addError('O nome da tarefa é obrigatório.');
-            }
-        }
+        ts.checkTaskName(newTasks);
     }
 
     public void beforeUpdate(List<Task__c> updatedTasks) {
-        for (Task__c task : updatedTasks) {
-            if (task.Name == null || task.Name.trim() == '') {
-                task.addError('O nome da tarefa é obrigatório.');
-            }
-        }
+        ts.checkTaskName(updatedTasks);
     }
 
     /*
