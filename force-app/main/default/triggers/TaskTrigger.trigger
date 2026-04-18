@@ -6,15 +6,16 @@ trigger TaskTrigger on Task__c (before insert, before update, after insert, afte
         if (Trigger.isInsert) {
             handler.beforeInsert(Trigger.new);
         } else if (Trigger.isUpdate) {
-            handler.beforeUpdate(Trigger.new, Trigger.oldMap);
+            handler.beforeUpdate(Trigger.new);
         }
-    } else if (Trigger.isAfter) {
+    }/* else if (Trigger.isAfter) {
         if (Trigger.isInsert) {
             handler.afterInsert(Trigger.new);
         } else if (Trigger.isUpdate) {
-            handler.afterUpdate(Trigger.new, Trigger.oldMap);
+            handler.afterUpdate(Trigger.new);
         } else if (Trigger.isDelete) {
             handler.afterDelete(Trigger.old);
         }
     }
+        */
 }

@@ -9,8 +9,8 @@ public with sharing class TaskHandler {
         ts.checkTaskName(newTasks);
     }
 
-    public void beforeUpdate(List<Task__c> updatedTasks, Map<Id, Task__c> oldMap) {
-        ts.checkTaskName(updatedTasks, oldMap);
+    public void beforeUpdate(List<Task__c> updatedTasks) {
+        ts.checkTaskName(updatedTasks);
     }
 
     /*
