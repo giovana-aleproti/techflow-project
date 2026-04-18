@@ -10,7 +10,7 @@ public with sharing class TaskHandler {
     }
 
     public void beforeUpdate(List<Task__c> updatedTasks, Map<Id, Task__c> oldMap) {
-        ts.checkTaskName(updatedTasks);
+        ts.checkTaskName(updatedTasks, oldMap);
     }
 
     /*

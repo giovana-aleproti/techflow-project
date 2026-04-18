@@ -10,7 +10,7 @@ public with sharing class ProjectHandler {
     }
 
     public void beforeUpdate(List<Project__c> updatedProjects, Map<Id, Project__c> oldMap) {
-        ps.checkProjectName(updatedProjects);
+        ps.checkProjectName(updatedProjects, oldMap);
     }
 
     /*
