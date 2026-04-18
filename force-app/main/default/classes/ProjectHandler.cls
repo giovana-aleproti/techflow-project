@@ -9,7 +9,7 @@ public with sharing class ProjectHandler {
         ps.checkProjectName(newProjects);
     }
 
-    public void beforeUpdate(List<Project__c> updatedProjects) {
+    public void beforeUpdate(List<Project__c> updatedProjects, Map<Id, Project__c> oldMap) {
         ps.checkProjectName(updatedProjects);
     }
 
