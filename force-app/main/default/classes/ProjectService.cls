@@ -8,7 +8,7 @@ public with sharing class ProjectService {
             if (project.Name == null || project.Name.trim() == '') {
                 project.addError('O nome do projeto é obrigatório.');
             }
-            project.Name = 'PRJ - ' + project.Name;
+            project.Name = 'PRJ|' + project.Name;
             updatedProjects.add(project);
         }
         update updatedProjects;
