@@ -8,10 +8,10 @@ public with sharing class TaskHandler {
     public void beforeInsert(List<Task__c> newTasks) {
         ts.checkTaskName(newTasks);
     }
-
+    /*
     public void beforeUpdate(List<Task__c> updatedTasks) {
-        ts.checkTaskName(updatedTasks);
-    }
+
+    }*/
 
     /*
     public void afterInsert(List<Task__c> newTasks) {
