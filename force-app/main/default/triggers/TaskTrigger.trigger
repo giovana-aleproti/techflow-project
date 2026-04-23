@@ -5,9 +5,9 @@ trigger TaskTrigger on Task__c (before insert, before update, after insert, afte
     if (Trigger.isBefore) {
         if (Trigger.isInsert) {
             handler.beforeInsert(Trigger.new);
-        } else if (Trigger.isUpdate) {
+        } /*else if (Trigger.isUpdate) {
             handler.beforeUpdate(Trigger.new);
-        }
+        }*/
     }/* else if (Trigger.isAfter) {
         if (Trigger.isInsert) {
             handler.afterInsert(Trigger.new);
