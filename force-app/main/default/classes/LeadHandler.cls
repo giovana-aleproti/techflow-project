@@ -10,7 +10,7 @@ public with sharing class LeadHandler {
         System.debug('Before Insert.');
     } 
     
-    public void beforeUpdate(List<Lead> updatedLeads) {
+    public void beforeUpdate(List<Lead> updatedLeads, Map<Id, Lead> oldLeadMap) {
         System.debug('Before Update.');
         ld.convertLead(updatedLeads);
     }
