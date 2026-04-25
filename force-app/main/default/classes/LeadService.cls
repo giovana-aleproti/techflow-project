@@ -1,12 +1,26 @@
 public with sharing class LeadService {
     
     public void convertLead(List<Lead> newLeads) {
+        List<Lead> leadsToUpdate = new List<Lead>();
+        
         for (Lead lead : newLeads) {           
-            createRelatedFromLeadConvert(lead);
-            lead.Status = 'Closed - Converted';
+            if (lead.Status == 'Qualified') {
+                createRelatedFromLeadConvert(lead);
+                lead.Status = 'Closed - Converted';
+                leadsToUpdate.add(lead);
+                System.debug('Converted: ' + lead.Id);
+            } else {
+                System.debug('Not Qualified to Convert: ' + lead.Id);
+                continue;
+            }          
         }
-
-        System.debug('Método finalizado.');
+        if (!leadsToUpdate.isEmpty()) {
+            update leadsToUpdate;
+            System.debug(leadsToUpdate.size()) + ' Leads updated';
+        } else {
+            System.debug('No leads to update.');
+        }
+        System.debug('Method convertLead Finished.');
     }
     
     public static void createRelatedFromLeadConvert(Lead lead) {
@@ -33,7 +47,7 @@ public with sharing class LeadService {
             StageName = 'Prospecting'
         );
         insert opp;
-    
+    System.debug('Method createRelatedFromLeadConvert Finished.');
     }   
 
 }

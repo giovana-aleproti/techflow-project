@@ -11,6 +11,7 @@ public with sharing class LeadHandler {
     } 
     
     public void beforeUpdate(List<Lead> updatedLeads) {
+        System.debug('Before Update.');
         ld.convertLead(updatedLeads);
     }
 
