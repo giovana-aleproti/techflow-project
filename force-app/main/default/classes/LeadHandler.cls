@@ -3,33 +3,29 @@
 */
 public with sharing class LeadHandler {
     
-    LeadService ld = new LeadService();
-
-    public void beforeInsert(List<Lead> newLeads) {
-        // Lógica para executar antes da inserção de leads, se necessário
-        System.debug('Before Insert.');
+    public static void beforeInsert(List<Lead> newLeads) {
+        //System.debug('Before Insert.');
     } 
     
-    public void beforeUpdate(List<Lead> updatedLeads, Map<Id, Lead> oldLeadMap) {
-        System.debug('Before Update.');
-        ld.convertLead(updatedLeads);
+    public static void beforeUpdate(List<Lead> updatedLeads, Map<Id, Lead> oldLeadMap) {
+        //System.debug('Before Update.');
     }
 
-    /*
-    public void afterInsert(List<Lead> newLeads) {
-        // Lógica para executar após a inserção de leads, se necessário
+    public static void afterInsert(List<Lead> newLeads) {
+        //System.debug('After Insert.');
     }
 
-    public void afterUpdate(List<Lead> updatedLeads) {
-        // Lógica para executar após a atualização de leads, se necessário
+    public static void afterUpdate(List<Lead> updatedLeads, Map<Id, Lead> oldLeadMap) {
+        //System.debug('After Update.');
+        LeadService.convertQualifiedLeads(updatedLeads, oldLeadMap);
     }
 
-    public void beforeDelete(List<Lead> leadsToDelete) {
-        // Lógica para executar antes da exclusão de leads, se necessário
+    public static void beforeDelete(List<Lead> leadsToDelete) {
+        //System.debug('Before Delete.');
     }
 
-    public void afterDelete(List<Lead> deletedLeads) {
-        // Lógica para executar após a exclusão de leads, se necessário
+    public static void afterDelete(List<Lead> deletedLeads) {
+        //System.debug('After Delete.');
     }
-    */
+
 }

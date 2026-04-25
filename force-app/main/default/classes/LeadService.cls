@@ -1,53 +1,30 @@
 public with sharing class LeadService {
     
-    public void convertLead(List<Lead> newLeads) {
-        List<Lead> leadsToUpdate = new List<Lead>();
-        
+    public static void convertQualifiedLeads(List<Lead> newLeads, Map<Id, Lead> oldLeadMap) {
+        List<Database.LeadConvert> toConvert = new List<Database.LeadConvert>();
+
         for (Lead lead : newLeads) {           
-            if (lead.Status == 'Qualified') {
-                createRelatedFromLeadConvert(lead);
-                lead.Status = 'Closed - Converted';
-                leadsToUpdate.add(lead);
+            
+            if (lead.Status == 'Qualified' && oldLeadMap.get(lead.Id).Status != 'Qualified') {
+
+                Database.LeadConvert lc = new Database.LeadConvert();
+                lc.setLeadId(lead.Id);
+                lc.setDoNotCreateOpportunity(false);
+                lc.setOpportunityName(lead.Company);
+                lc.setOwnerId(UserInfo.getUserId());
+                Database.convertLead(lc);
+                
+                toConvert.add(lc);
+
                 System.debug('Converted: ' + lead.Id);
             } else {
-                System.debug('Not Qualified to Convert: ' + lead.Id);
-                continue;
+                System.debug('Not Qualified: ' + lead.Id);
             }          
         }
-        if (!leadsToUpdate.isEmpty()) {
-            update leadsToUpdate;
-            System.debug(leadsToUpdate.size()) + ' Leads updated';
-        } else {
-            System.debug('No leads to update.');
+        if (!toConvert.isEmpty()) {
+            Database.convertLead(toConvert);
         }
-        System.debug('Method convertLead Finished.');
+        System.debug('Method convertQualifiedLeads Finished.');
     }
-    
-    public static void createRelatedFromLeadConvert(Lead lead) {
-        
-        Account acc = new Account(
-            Name = lead.Company,
-            Phone = lead.Phone,
-            Website = lead.Website
-        );
-        insert acc;
-      
-        Contact cont = new Contact(
-            FirstName = lead.FirstName,
-            LastName = lead.LastName,
-            Email = lead.Email,
-            Phone = lead.Phone,
-            AccountId = acc.Id
-        );
-        insert cont;
-        
-        Opportunity opp = new Opportunity(
-            Name = lead.Company, 
-            AccountId = acc.Id,          
-            StageName = 'Prospecting'
-        );
-        insert opp;
-    System.debug('Method createRelatedFromLeadConvert Finished.');
-    }   
 
 }
